@@ -1,69 +1,120 @@
+"use client";
+
+import React, { useState } from "react";
 import Image from "next/image";
+import { Navbar } from "@/components/Navbar";
+import { Hero } from "@/components/Hero";
+import { PropertyShowcase } from "@/components/PropertyShowcase";
+import { PanoramicStrips } from "@/components/PanoramicStrips";
+import { ServicesSection } from "@/components/ServicesSection";
+import { PropertyDesk } from "@/components/PropertyDesk";
+import { WhyChooseUs } from "@/components/WhyChooseUs";
+import { HowItWorks } from "@/components/HowItWorks";
+import { AboutSection } from "@/components/AboutSection";
+import { FaqSection } from "@/components/FaqSection";
+import Link from "next/link";
+import { Footer } from "@/components/Footer";
+import { FutureServiceModal } from "@/components/FutureServiceModal";
+import { WhatsAppFloatingButton } from "@/components/WhatsAppFloatingButton";
 
 export default function Home() {
+  const [deskTab, setDeskTab] = useState<"source" | "list">("source");
+  const [futureModalType, setFutureModalType] = useState<"lic" | "loans" | null>(null);
+
+  const handleHeroSelectTab = (tab: "source" | "list") => {
+    setDeskTab(tab);
+  };
+
+  const handleScrollToPropertyDesk = () => {
+    const elem = document.getElementById("discovery");
+    if (elem) {
+      elem.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <div className="flex flex-col min-h-screen bg-[#FAF8F4] selection:bg-[#641E2B] selection:text-[#FAF8F4]">
+      {/* 01. Header & Navigation */}
+      <Navbar />
+
+      <main className="flex-1">
+        {/* 02. Hero Section */}
+        <Hero onSelectTab={handleHeroSelectTab} />
+
+        {/* Stewart & Co "Luxury Lives Here" Property Showcase */}
+        <PropertyShowcase />
+
+        {/* Stewart & Co Panoramic Feature Strips */}
+        <PanoramicStrips />
+
+        {/* 03. Services Portfolio (Live Property, Coming Soon LIC, Referral Loans) */}
+        <ServicesSection
+          onOpenFutureModal={(type) => setFutureModalType(type)}
+          onScrollToPropertyDesk={handleScrollToPropertyDesk}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+
+        {/* 04. Property Discovery Desk (Requirement & Listing Form) */}
+        <PropertyDesk key={deskTab} initialTab={deskTab} />
+
+        {/* 05. Why Choose Us (Credibility, No Fake Hype) */}
+        <WhyChooseUs />
+
+        {/* 06. How It Works (4-Step Advisory Journey) */}
+        <HowItWorks />
+
+        {/* 07. About Us (Founder, Philosophy & Locations) */}
+        <AboutSection />
+
+        {/* 08. FAQs */}
+        <FaqSection />
+
+        {/* Stewart & Co Style Dedicated Storytelling Consultation Call-to-Action with Background Image */}
+        <section className="relative py-28 md:py-36 overflow-hidden border-t border-[#313B44]">
+          {/* Background Estate Image */}
+          <div className="absolute inset-0">
             <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
+              src="/images/hero-estate.jpg"
+              alt="Exclusive Delhi NCR Estate & Private Advisory"
+              fill
+              sizes="100vw"
+              className="object-cover object-center scale-105"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+            {/* Low-shadow overlay filter to keep the estate image luminous */}
+            <div className="absolute inset-0 bg-black/45"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/35 to-black/65"></div>
+          </div>
+
+          <div className="relative z-10 w-full px-6 sm:px-10 lg:px-16 2xl:px-24 flex flex-col md:flex-row items-center justify-between gap-10">
+            <div className="space-y-3 text-center md:text-left max-w-2xl">
+              <h2 className="font-serif tracking-[0.18em] uppercase text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-light text-white leading-tight drop-shadow-md">
+                Looking for Genuine Advisory?
+              </h2>
+              <p className="text-xs sm:text-sm text-[#F0ECE7] font-light leading-relaxed max-w-xl">
+                Book a dedicated session or accompanied on-ground property inspection in Palam on our consultation desk.
+              </p>
+            </div>
+            <Link
+              href="/schedule-consultation"
+              className="px-9 py-4 rounded-full bg-white hover:bg-[#1E252B] text-[#1E252B] hover:text-white text-xs uppercase tracking-[0.22em] font-semibold transition-all duration-500 shadow-sm hover:shadow-md shrink-0 text-center border border-white/20 hover:border-transparent group"
+            >
+              <span>Schedule Consultation →</span>
+            </Link>
+          </div>
+        </section>
       </main>
+
+      {/* 09. Footer & Regulatory Disclosures */}
+      <Footer />
+
+      {/* Planned Services Notice Modal */}
+      <FutureServiceModal
+        isOpen={Boolean(futureModalType)}
+        onClose={() => setFutureModalType(null)}
+        serviceType={futureModalType}
+      />
+
+      {/* Floating WhatsApp Action Button */}
+      <WhatsAppFloatingButton />
     </div>
   );
 }

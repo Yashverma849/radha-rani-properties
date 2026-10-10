@@ -1,26 +1,98 @@
 @import "tailwindcss";
 
+@theme {
+  --color-burgundy-900: #3b1119;
+  --color-burgundy-800: #4d1721;
+  --color-burgundy-700: #641e2b;
+  --color-burgundy-600: #7e2436;
+  --color-burgundy-500: #9a2e43;
+  --color-burgundy-50: #fbf5f6;
+
+  --color-gold-700: #967537;
+  --color-gold-600: #af8d47;
+  --color-gold-500: #c5a15a;
+  --color-gold-400: #d6b879;
+  --color-gold-300: #e3cc9c;
+  --color-gold-100: #f7f1e4;
+  --color-gold-50: #faf7f0;
+
+  --color-ivory-50: #fdfcf9;
+  --color-ivory-100: #faf8f4;
+  --color-ivory-200: #f4efe6;
+  --color-ivory-300: #eae1d2;
+
+  --color-charcoal-900: #191919;
+  --color-charcoal-800: #242424;
+  --color-charcoal-700: #363636;
+  --color-charcoal-600: #525252;
+  --color-charcoal-500: #737373;
+
+  --font-serif: var(--font-serif), Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --burgundy: #641e2b;
+  --burgundy-dark: #44121b;
+  --gold: #c5a15a;
+  --gold-light: #dfbf7d;
+  --ivory: #faf8f4;
+  --charcoal: #242424;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-sans);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+.font-serif-title {
+  font-family: var(--font-serif), Georgia, serif;
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #FAF8F4;
+}
+::-webkit-scrollbar-thumb {
+  background: #C5A15A;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #641E2B;
+}
+
+/* Logo Fade In and Out Loader Animations */
+@keyframes pulseFade {
+  0% {
+    opacity: 0.15;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+  100% {
+    opacity: 0.15;
+    transform: scale(0.92);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes progressIndeterminate {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-pulse-fade {
+  animation: pulseFade 1.6s ease-in-out infinite;
+}
+
+.animate-progress-indeterminate {
+  animation: progressIndeterminate 1.4s ease-in-out infinite;
 }
