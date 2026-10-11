@@ -67,6 +67,12 @@ export default function ScheduleConsultationPage() {
           location: locationOrPocket,
           requirements: `Date: ${preferredDate || "Earliest Available"} | Slot: ${timeSlot} | Notes: ${notes || "No additional notes"}`,
           consent,
+          service,
+          meetingMode,
+          preferredDate: preferredDate || null,
+          timeSlot,
+          notes,
+          isConsultation: true,
         }),
       });
 

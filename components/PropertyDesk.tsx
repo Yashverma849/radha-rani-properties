@@ -75,7 +75,9 @@ export function PropertyDesk({ initialTab = "source" }: PropertyDeskProps) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...formData,
+          leadType: activeTab,
           enquiryType,
+          isCuratedDesk: true,
         }),
       });
 
